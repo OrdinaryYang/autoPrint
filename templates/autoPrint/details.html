@@ -1,0 +1,28 @@
+{% extends "./__base__.html" %}
+
+{% load static %}
+
+{% block content %}
+    <p>您正在填写的是第<font color="red" size="16"><b>{{ order }}</b></font>张表单</p>
+<form action="{% url 'details' %}" onmouseout="add('test')" method="post">
+    <table border="1" >
+        <tr><th> 委托日期          </th><td><input type="text" id="date" name="date"   value={{ sales.date }}  ></td></tr>
+        <tr><th> 付款人全称      </th><td><input type="text" id='pay_name' name="pay_name"  value={{ pay.company_name }}  ></td></tr>
+        <tr><th> 付款人账号      </th><td><input type="text" id="pay_account" name="pay_account" value={{ pay.company_account }}   ></td></tr>
+        <tr><th> 付款人地址      </th><td><input type="text" id="pay_address" name="pay_address" value={{ pay.company_address }}   ></td></tr>
+        <tr><th> 付款人开户行  </th><td><input type="text" id="pay_location" name="pay_location" value={{ pay.account_location }}  ></td></tr>
+        <tr><th> 收款人全称      </th><td><input type="text" id="payee_name" name="payee_name" value={{ payee.company_name }}   ></td></tr>
+        <tr><th> 收款人账号      </th><td><input type="text" id="payee_account" name="payee_account" value={{ payee.company_account }}   ></td></tr>
+        <tr><th> 收款人地址      </th><td><input type="text" id="payee_address" name="payee_address" value={{ payee.company_address }}  ></td></tr>
+        <tr><th> 收款人开户行  </th><td><input type="text" id="payee_location" name="payee_location" value={{ payee.account_location }}   ></td></tr>
+        <tr><th> 大写金额          </th><td><input type="text" id="price_ch" name="price_ch"  value={{ sales.total_price_ch }}  ></td></tr>
+        <tr><th> 小写金额          </th><td><input type="text" id="price"  name="price" value={{ sales.total_price }}  ></td></tr>
+        <tr><th> 托收票据名称  </th><td><input type="text" id="tax_receipt" name="tax_receipt" value={{ sales.tax_receipt }}  ></td></tr>
+        <tr><th> 附寄单证张数  </th><td><input type="text" id="receipt_amount" name="receipt_amount" value={{ sales.receipt_amount}}  ></td></tr>
+        <tr><th> 备注                  </th><td><input type="text" id="note"  name="notes"   value={{ payee.notes }}  ></td></tr>
+        <tr><th> 付款标注          </th><td><input type="text" id="pay_note" name="pay_note" ></td></tr>
+    </table>
+<input type="submit" name="submit" value="提交" align="center">
+</form>
+
+{% endblock %}

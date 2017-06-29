@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+a.select{color:#F00};/*选中的样式*/
+</style>
+<script>
+function left_btn(n)
+{
+	var a_num=document.getElementById("left_btn_box").getElementsByTagName("a");
+	for(i=0;i<a_num.length;i++)
+	{
+		a_num[i].className=i==n?"select":"";
+ 	}
+}
+</script>
+<div  id="left_btn_box">
+     <a  class="select" onclick="left_btn(0)" href="http://www.baidu.com">按钮1</a>
+     <a  onclick="left_btn(1)" href="http://www.baidu.com">按钮2</a>
+     <a  onclick="left_btn(2)" href="http://www.baidu.com">按钮3</a>
+</div>
+
+</body>
+</html>

@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^upload/$', views.upload_file, name='upload_file'),
     url(r'checkInfo/$', views.check_info, name='check_info'),
+    url(r'details/$', views.details, name='details'),
+    url(r'^cn-(?P<order>[0-9]+)-(?P<comp_name>[\u4e00-\u9fa5]+)/$', views.details, name='details'),
 ]

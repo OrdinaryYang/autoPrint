@@ -1,6 +1,6 @@
 import xlrd
 from collections import OrderedDict
-
+import json
 
 def rmb_upper(value):
     """
@@ -100,7 +100,11 @@ def mergeDictsValue(dicts):
     return dicts
 
 
-# if __name__ == '__main__':
-#     file_dir = '../../media/test_data.xls'
-#     raw = accessExcelData(file_dir)
-#     print(mergeDictsValue(raw))
+if __name__ == '__main__':
+    file_dir = '../../media/test_data.xls'
+    raw = accessExcelData(file_dir)
+    ordered_dict = mergeDictsValue(raw)
+    json_str = json.dumps(ordered_dict)
+    print(json_str)
+    s = json.loads(json_str)
+    print(s)

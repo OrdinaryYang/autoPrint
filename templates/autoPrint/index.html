@@ -3,7 +3,21 @@
 {% load static %}
 
 {% block content %}
+        <style>
+           .my_html a:visited {color: #893846
+            }
+        </style>
 
-这里将会是个填写信息的页面
-{{ file_url }}
+    <div class="uk-description-list-horizontal">
+        <p>总计共有<font color="red"><b>{{ amount }}</b></font> 个单据需要填写:<br><br></p>
+    </div>
+    <div class="uk-list" id="left_btn_box">
+         <ol>
+             {% for k, v in sales_info.items %}
+                 <li><a class='my_html' href="/autoPrint/cn-{{ forloop.counter}}-{{ k }}">{{ k }}</a></li>
+             {% endfor %}
+         </ol>
+     </div>
+
+
 {% endblock %}
