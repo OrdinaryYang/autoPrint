@@ -4,7 +4,7 @@
 
 {% block content %}
     <p>您正在填写的是第<font color="red" size="16"><b>{{ order }}</b></font>张表单</p>
-<form action="{% url 'details' %}" onmouseout="add('test')" method="post">
+<form action="{% url 'post_details' %}" onmouseout="add('test')" method="post">
     <table border="1" >
         <tr><th> 委托日期          </th><td><input type="text" id="date" name="date"   value={{ sales.date }}  ></td></tr>
         <tr><th> 付款人全称      </th><td><input type="text" id='pay_name' name="pay_name"  value={{ pay.company_name }}  ></td></tr>
@@ -19,7 +19,7 @@
         <tr><th> 小写金额          </th><td><input type="text" id="price"  name="price" value={{ sales.total_price }}  ></td></tr>
         <tr><th> 托收票据名称  </th><td><input type="text" id="tax_receipt" name="tax_receipt" value={{ sales.tax_receipt }}  ></td></tr>
         <tr><th> 附寄单证张数  </th><td><input type="text" id="receipt_amount" name="receipt_amount" value={{ sales.receipt_amount}}  ></td></tr>
-        <tr><th> 备注                  </th><td><input type="text" id="note"  name="notes"   value={{ payee.notes }}  ></td></tr>
+        <tr><th> 备注                  </th><td><input type="text" id="notes"  name="notes"   value={{ payee.notes }}  ></td></tr>
         <tr><th> 付款标注          </th><td><input type="text" id="pay_note" name="pay_note" ></td></tr>
     </table>
 <input type="submit" name="submit" value="提交" align="center">

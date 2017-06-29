@@ -4,10 +4,14 @@ from .config.myconfig import file_config
 from django.shortcuts import render
 from .lib.utils import accessExcelData, mergeDictsValue
 from django.http import HttpResponse, JsonResponse
+from collections import OrderedDict
 import logging
 import os
 import json
 logger = logging.getLogger(__name__)
+
+
+info = OrderedDict()
 
 
 def home(request):
@@ -38,6 +42,8 @@ def upload_file(request):
         uploaded_file_url = fs.url(filename).lstrip('/')
         raw_info = accessExcelData(uploaded_file_url)
         sales_info = mergeDictsValue(raw_info)
+        global info
+        info = sales_info
         try:
             for k, v in sales_info.items():
                 sale_report = SaleReport(payment_comp=k, date=','.join(v[0]), total_price=v[1], total_price_ch=v[2],
@@ -52,7 +58,7 @@ def upload_file(request):
         return render(request, 'autoPrint/upload.html')
 
 
-def details(request, comp_name, order):
+def post_details(request):
     if request.method == 'POST':
         # 付款人信息
         payment_comp = request.POST['pay_name']
@@ -62,39 +68,49 @@ def details(request, comp_name, order):
         pay = PayCompany.objects.filter(company_name=payment_comp)
         if len(pay) == 0:
             p1 = PayCompany(company_account=pay_company_account, company_address=pay_company_address,
-                            account_location=pay_account_location)
+                            account_location=pay_account_location, company_name=payment_comp)
             p1.save()
         else:
-            pass
+            if payment_comp == pay[0].company_name \
+                    and pay_company_account == pay[0].company_account \
+                    and pay_company_address == pay[0].company_address \
+                    and pay_account_location:
+                pass
+            else:
+                p1 = PayCompany(company_account=pay_company_account, company_address=pay_company_address,
+                                account_location=pay_account_location)
+                p1.save()
         # 收款人信息
         payee_comp = request.POST['payee_name']
         payee_company_account = request.POST['payee_account']
         payee_company_address = request.POST['payee_address']
         payee_account_location = request.POST['payee_location']
-        payee_note = request.POST['note']
+        notes = request.POST['notes']
         payee = PayeeCompany.objects.filter(company_name=payee_comp)
         payee.update(company_account=payee_company_account, company_address=payee_company_address,
-                     account_location=payee_account_location, note=payee_note)
+                     account_location=payee_account_location, notes=notes)
+        global info
+        sales_info = info
+        return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
 
-        return render(request, 'autoPrint/index.html')
+
+def get_details(request, comp_name, order):
+    pay_list = PayCompany.objects.filter(company_name=comp_name)
+    sales_list = SaleReport.objects.filter(payment_comp=comp_name).order_by('added_date')
+    payee_list = PayeeCompany.objects.all().order_by('added_date')
+    if len(payee_list) == 0:
+        payee = PayeeCompany()
     else:
-        pay_list = PayCompany.objects.filter(company_name=comp_name)
-        sales_list = SaleReport.objects.filter(payment_comp=comp_name).order_by('added_date')
-        payee_list = PayeeCompany.objects.all().order_by('added_date')
-        if len(payee_list) == 0:
-            payee = PayeeCompany()
-        else:
-            payee = payee_list[::-1][0]
-        if len(pay_list) == 0:
-            pay = PayeeCompany()
-        else:
-            pay = payee_list[::-1][0]
-        if len(sales_list) == 0:
-            sales = SaleReport()
-        else:
-            sales = sales_list[::-1][0]
-        return render(request, 'autoPrint/details.html', {'pay': pay, 'order': order,
-                                                          'payee': payee, 'sales': sales})
-
+        payee = payee_list[::-1][0]
+    if len(pay_list) == 0:
+        pay = PayeeCompany(company_name=comp_name)
+    else:
+        pay = payee_list[::-1][0]
+    if len(sales_list) == 0:
+        sales = SaleReport()
+    else:
+        sales = sales_list[::-1][0]
+    return render(request, 'autoPrint/details.html', {'pay': pay, 'order': order,
+                                                      'payee': payee, 'sales': sales})
 
 
