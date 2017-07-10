@@ -21,6 +21,8 @@ class PayCompany(models.Model):
     company_account = models.CharField(max_length=50, verbose_name='付款人账号')
     company_address = models.CharField(max_length=200, verbose_name='付款人地址')
     account_location = models.CharField(max_length=100, verbose_name='付款人开户行')
+    pay_province = models.CharField(max_length=100, verbose_name='省')
+    pay_city = models.CharField(max_length=100, verbose_name='市')
 
     def __str__(self):
         return "付款人信息——" + self.company_name
@@ -33,6 +35,8 @@ class PayeeCompany(models.Model):
     account_location = models.CharField(max_length=100, verbose_name='收款人开户行')
     notes = models.CharField(max_length=200, verbose_name='备注')
     added_date = models.DateTimeField(default=datetime.now, verbose_name='添加日期')
+    payee_province = models.CharField(max_length=100, verbose_name='省')
+    payee_city = models.CharField(max_length=100, verbose_name='市')
 
     def __str__(self):
         return "收款人信息——" + self.company_name

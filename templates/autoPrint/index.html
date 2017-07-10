@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-        <style>
+    <style xmlns="http://www.w3.org/1999/html">
            .my_html a:visited {color: #893846
             }
         </style>
@@ -17,7 +17,9 @@
                  <li><a class='my_html' href="/autoPrint/cn-{{ forloop.counter}}-{{ k }}">{{ k }}</a></li>
              {% endfor %}
          </ol>
-     </div>
-
+    </div>
+    <br>
+    <p><a href="/autoPrint/download">点击下载文件</a></p><br>
+    <p>请您务必<font color="#ff0000" ><b>完成所有单据填写</b></font>后在点击下载按钮，防止数据丢失</p>
 
 {% endblock %}
