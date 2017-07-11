@@ -13,7 +13,7 @@ class SaleReport(models.Model):
     added_date = models.DateTimeField(default=datetime.now, verbose_name='添加日期')
 
     def __str__(self):
-        return "销售日报数据——" + self.payment_comp
+        return str(self.date) + "销售日报数据——" + self.payment_comp
 
 
 class PayCompany(models.Model):

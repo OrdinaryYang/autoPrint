@@ -1,6 +1,11 @@
 import xlrd
-from collections import OrderedDict
 import csv
+import zipfile
+import os
+from datetime import datetime
+from collections import OrderedDict
+from ..config.myconfig import zip_file_config
+
 
 def rmb_upper(value):
     """
@@ -117,3 +122,17 @@ def write2csv(file_dir, lists, mode='a'):
     for line in lists:
             writer.writerow(line)
     csv_file.close()
+
+
+def getToday():
+    return datetime.now().strftime('%Y-%m-%d')
+
+
+def myCompress(dir_path, file_name):
+    f = zipfile.ZipFile(file_name, 'w', zipfile.ZIP_DEFLATED)
+    for file in os.listdir(dir_path):
+        a, b = file.split('.')
+        if b == 'csv':
+            file_path = zip_file_config['dir_path'] + file
+            f.write(file_path)
+    f.close()

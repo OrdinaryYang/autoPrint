@@ -1,13 +1,12 @@
 from django.core.files.storage import FileSystemStorage
 from .models import PayCompany, PayeeCompany, SaleReport
-from .config.myconfig import file_config
+from .config.myconfig import file_config, acc_file_config, zip_file_config
 from django.shortcuts import render
-from .lib.utils import accessExcelData, mergeDictsValue, write2csv
+from .lib.utils import accessExcelData, mergeDictsValue, write2csv, getToday, myCompress
 from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
 from collections import OrderedDict
 import logging
 import os
-import json
 
 
 logger = logging.getLogger(__name__)
@@ -53,16 +52,25 @@ def upload_file(request):
             return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
         finally:
             os.remove(uploaded_file_url)
+
+            # 为两个输出csv文件设置标题栏
             file_name = file_config['csv_dir']
-            if not os.path.isfile(file_name):
-                line = file_config['line']
-                write2csv(file_name, [line], mode='w')
+            acc_file_name = acc_file_config['acc_file_dir']
+            dir_path = zip_file_config['dir_path']
+            for file in os.listdir(dir_path):
+                os.remove(dir_path+file)
+            line = file_config['line']
+            acc_line = acc_file_config['account_line']
+            write2csv(acc_file_name, [acc_line], mode='w')
+            write2csv(file_name, [line], mode='w')
     else:
         return render(request, 'autoPrint/upload.html')
 
 
 def download(req):
-    the_file_name = file_config['csv_dir']
+    the_file_name = zip_file_config['file_name']
+    csv_path = zip_file_config['dir_path']
+    myCompress(csv_path, the_file_name)
 
     def file_iterator(file_name, chunk_size=512):
         with open(file_name, 'rb') as f:
@@ -73,12 +81,10 @@ def download(req):
                 else:
                     break
             f.close()
-
-    type(the_file_name)
     response = StreamingHttpResponse(file_iterator(the_file_name))
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
-    return response
+    return HttpResponse()
 
 
 def post_details(request):
@@ -132,7 +138,7 @@ def post_details(request):
         sales_info = info
 
         # 日报信息
-        sales_price_ch = request.POST['price_ch']
+        # sales_price_ch = request.POST['price_ch']
         sales_price = request.POST['price']
         sales_tax_receipt = request.POST['tax_receipt']
         sales_receipt_amount = request.POST['receipt_amount']
@@ -140,11 +146,13 @@ def post_details(request):
         year, month, day = sales_date.split('-')
 
         info_line = [[year, '\t'+month, '\t'+day, payment_comp, pay_company_account, payee_comp, payee_company_account,
-                      '款项用途', payee_account_location, sales_price_ch, sales_price, '托收票据名称', notes,
-                      '款项接收日期', pay_account_location, pay_province, pay_city, payee_province,
-                      payee_city, sales_receipt_amount], ]
+                      '款项用途', payee_account_location, sales_price, sales_price, '\t'+sales_tax_receipt, notes,
+                      '款项接收日期', pay_account_location, pay_province, pay_city, payee_province, payee_city,
+                      sales_receipt_amount], ]
+        acc_info_line = [[getToday(), payment_comp, pay_province+pay_city+pay_account_location, sales_price,
+                          't'+sales_tax_receipt, sales_receipt_amount, notes], ]
         write2csv(file_config['csv_dir'], info_line, mode='a')
-        print(sales_tax_receipt)
+        write2csv(acc_file_config['acc_file_dir'], acc_info_line, mode='a')
         return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
 
 
