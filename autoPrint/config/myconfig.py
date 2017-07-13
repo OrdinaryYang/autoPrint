@@ -16,3 +16,10 @@ zip_file_config = {
     'file_name': 'media/csvFiles/download.zip',
     'dir_path': 'media/csvFiles/'
 }
+
+ems_file_config = {
+    'ems_file_dir': 'media/csvFiles/ems.csv',
+    'ems_line': ['0:单位名称_己方', '1:地址_己方', '2:单位名称_对方', '3:地址_对方'],
+    'company_from': '上海浦东发展银行',
+    'company_from_addr': '郑州市金水区金水路299号',
+}

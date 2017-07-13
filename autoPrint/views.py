@@ -1,6 +1,6 @@
 from django.core.files.storage import FileSystemStorage
 from .models import PayCompany, PayeeCompany, SaleReport
-from .config.myconfig import file_config, acc_file_config, zip_file_config
+from .config.myconfig import file_config, acc_file_config, zip_file_config, ems_file_config
 from django.shortcuts import render
 from .lib.utils import accessExcelData, mergeDictsValue, write2csv, getToday, myCompress
 from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
@@ -56,13 +56,16 @@ def upload_file(request):
             # 为两个输出csv文件设置标题栏
             file_name = file_config['csv_dir']
             acc_file_name = acc_file_config['acc_file_dir']
+            ems_file_name = ems_file_config['ems_file_dir']
             dir_path = zip_file_config['dir_path']
             for file in os.listdir(dir_path):
                 os.remove(dir_path+file)
             line = file_config['line']
             acc_line = acc_file_config['account_line']
+            ems_line = ems_file_config['ems_line']
             write2csv(acc_file_name, [acc_line], mode='w')
             write2csv(file_name, [line], mode='w')
+            write2csv(ems_file_name, [ems_line], mode='w')
     else:
         return render(request, 'autoPrint/upload.html')
 
@@ -84,7 +87,7 @@ def download(req):
     response = StreamingHttpResponse(file_iterator(the_file_name))
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
-    return HttpResponse()
+    return response
 
 
 def post_details(request):
@@ -151,8 +154,11 @@ def post_details(request):
                       sales_receipt_amount], ]
         acc_info_line = [[getToday(), payment_comp, pay_province+pay_city+pay_account_location, sales_price,
                           't'+sales_tax_receipt, sales_receipt_amount, notes], ]
+        ems_info_line = [[ems_file_config['company_from'], ems_file_config['company_from_addr'], payment_comp,
+                         pay_company_address], ]
         write2csv(file_config['csv_dir'], info_line, mode='a')
         write2csv(acc_file_config['acc_file_dir'], acc_info_line, mode='a')
+        write2csv(ems_file_config['ems_file_dir'], ems_info_line, mode='a')
         return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
 
 
