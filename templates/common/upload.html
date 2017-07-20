@@ -1,0 +1,20 @@
+{% extends './__base__.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <div class="row" style="margin-top: 5%; margin-bottom: 100px;" >
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="align-center"><br><br>
+                <h3 class="media-heading">请上传需要导入的excel文件</h3>
+                <form method="post" enctype="multipart/form-data" action="{% url 'upload_file' %}">{% csrf_token %}
+                  <input id="input-id" type="file" class="file" data-preview-file-type="text"  name="myfile">
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+{% endblock %}

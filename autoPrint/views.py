@@ -81,7 +81,7 @@ def upload_file(request):
                 sale_report.save()
                 logger.debug('{comp_name}信息：{list}'.format(comp_name=k, list=str(v)))
             logger.info('日报信息提取完毕！')
-            return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
+            return render(request, 'common/details.html', {'sales_info': sales_info, 'amount': len(sales_info)})
         finally:
             os.remove(uploaded_file_url)
 
@@ -99,7 +99,7 @@ def upload_file(request):
             write2csv(file_name, [line], mode='w')
             write2csv(ems_file_name, [ems_line], mode='w')
     else:
-        return render(request, 'autoPrint/upload.html')
+        return render(request, 'common/upload.html')
 
 
 def download(req):
