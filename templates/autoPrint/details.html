@@ -4,7 +4,7 @@
 
 {% block content %}
     <p>您正在填写的是第<font color="red" size="16"><b>{{ order }}</b></font>张表单</p>
-<form action="{% url 'post_details' %}" onmouseout="add('test')" method="post">
+<form action="{% url 'post_details' %}"  method="post">
     <table border="1" >
         <tr><th> 委托日期          </th><td><input type="text" id="date" name="date"   value={{ sales.date }}  ></td></tr>
         <tr><th> 付款人全称      </th><td><input type="text" id='pay_name' name="pay_name"  value={{ pay.company_name }}  ></td></tr>

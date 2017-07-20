@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../static/common/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/common/js/jquery.form.min.js"></script>
+    <link rel="stylesheet" href="../../static/common/css/bootstrap.min.css">
+    <script src="../../static/common/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {
+            background-color: #f5f5f5;
+         }
+</style>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#print-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand " href="{% url 'home' %}">
+                    统一前端模板
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="print-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            帮助 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "helper" %}">使用帮助</a></li>
+                            <li class="disabled"><a href="#">联系我们</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right btn">
+                    <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li ><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="pull-right" style="margin-right:2%">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-question-sign"></span> 帮助
+    </button>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="True">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    页面帮助
+                </h4>
+            </div>
+            <div class="modal-body">
+                {% block helper %}
+                {% endblock %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ><a  href="{% url 'helper' %}">仍有问题！</a></button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">我明白了；)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+{% endblock %}
+
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-text col-md-12" style="text-align: center">
+            <p>Power By <a href="http://www.spdb.com.cn" >信息科技部</a>. Copyright &copy; 2017. All rights reserved.</p>
+            <a target="_blank" href="http://www.w3.org/TR/html5/"></a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

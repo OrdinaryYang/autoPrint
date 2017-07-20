@@ -1,0 +1,54 @@
+{% extends "./__base__.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <style>
+        .myForm {
+            padding: 19px 29px 29px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+        }
+        .form-signin-heading {
+            margin-bottom: 10px;
+
+        }
+    </style>
+
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row clearfix" >
+        <div class="col-md-4 column"></div>
+        <div class="col-md-4 column">
+            <form role="form" class="myForm">
+                <h2 class="form-signin-heading">欢迎使用！</h2>
+                <div class="form-group" >
+                    <label for="emailAddress">邮箱</label>
+                    <input type="email" class="form-control" id="emailAddress" name="email" placeholder="example@spdb.com.cn"/>
+                    <p class="help-block">eg. zhangsan@spdb.com.cn</p>
+                </div>
+                <div class="form-group">
+                    <label for="emailPassword">密码</label>
+                    <input type="password" class="form-control" name='password' id="emailPassword" placeholder="password"/>
+                    <div class="checkbox">
+                        <label><input type="checkbox"  name="remember"/>Check me out</label>
+				    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block helper %}
+    <p>1.邮箱请填写您的浦发企业邮箱地址</p>
+    <p>2.密码为您的开机密码/邮箱密码</p>
+    <p>3.正确填写后请点击提交</p>
+{% endblock %}
