@@ -6,6 +6,7 @@ from django.shortcuts import render
 from .lib.utils import accessExcelData, mergeDictsValue, write2csv, getToday, myCompress
 from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
 from collections import OrderedDict
+from datetime import datetime
 import logging
 import os
 
@@ -15,7 +16,7 @@ info = OrderedDict()
 
 
 def home(request):
-    return render(request, 'common/__base__.html')
+    return render(request, 'common/index.html')
 
 
 def helper(request):
@@ -35,11 +36,6 @@ def login(request):
 
 
 def check_info(request):
-    """
-    这事一个测试用的view，没有实际意义
-    :param request:
-    :return:
-    """
     comp_name = request.POST['name']
     pay_list = PayCompany.objects.filter(company_name=comp_name)
     sales_list = SaleReport.objects.filter(payment_comp=comp_name).order_by('added_date')
@@ -141,14 +137,12 @@ def post_details(request):
             if payment_comp == pay[0].company_name \
                     and pay_company_account == pay[0].company_account \
                     and pay_company_address == pay[0].company_address \
-                    and pay_account_location:
+                    and pay_account_location == pay[0].account_location:
+                pass
+            else:
                 pay.update(company_account=pay_company_account, company_address=pay_company_address,
                            account_location=pay_account_location, company_name=payment_comp, pay_city=pay_city,
                            pay_province=pay_province)
-            else:
-                p1 = PayCompany(company_account=pay_company_account, company_address=pay_company_address,
-                                account_location=pay_account_location)
-                p1.save()
 
         # 收款人信息
         payee_comp = request.POST['payee_name']
@@ -162,15 +156,13 @@ def post_details(request):
         if len(payee) != 0:
             payee.update(company_account=payee_company_account, company_address=payee_company_address,
                          account_location=payee_account_location, notes=notes, payee_city=payee_city,
-                         payee_province=payee_province)
+                         payee_province=payee_province, added_date=datetime.now())
         else:
 
             payee1 = PayeeCompany(company_name=payee_comp, company_account=payee_company_account,
                                   company_address=payee_company_address, account_location=payee_account_location,
                                   notes=notes, payee_city=payee_city, payee_province=payee_province)
             payee1.save()
-        global info
-        sales_info = info
 
         # 日报信息
         # sales_price_ch = request.POST['price_ch']
@@ -180,7 +172,8 @@ def post_details(request):
         sales_date = request.POST['date']
         year, month, day = sales_date.split('-')
 
-        info_line = [[year, '\t'+month, '\t'+day, payment_comp, pay_company_account, payee_comp, payee_company_account,
+        info_line = [[year, '\t'+month, '\t'+day, payment_comp, '\t'+pay_company_account, payee_comp,
+                      '\t'+payee_company_account,
                       '款项用途', payee_account_location, sales_price, sales_price, '\t'+sales_tax_receipt, notes,
                       '款项接收日期', pay_account_location, pay_province, pay_city, payee_province, payee_city,
                       sales_receipt_amount], ]
@@ -197,6 +190,7 @@ def post_details(request):
         # return render(request, 'autoPrint/index.html', {'sales_info': sales_info, 'amount': len(sales_info)})
 
 
+# 暂时没有用到
 def get_details(request, comp_name, order):
     pay_list = PayCompany.objects.filter(company_name=comp_name)
     sales_list = SaleReport.objects.filter(payment_comp=comp_name).order_by('added_date')

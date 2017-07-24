@@ -9,10 +9,12 @@
             padding: 19px 29px 29px;
             background-color: #fff;
             border: 1px solid #e5e5e5;
-            margin-bottom: 100px;
+            margin-bottom: 20px;
+
         }
     .myCol {
         margin-top: 25px;
+        margin-bottom: 100px;
     }
     </style>
 
@@ -56,8 +58,8 @@
     </script>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 btn-group-vertical" style="margin-bottom: 100px;">
+        <div class="row" >
+            <div class="col-md-3 btn-group-vertical " style="margin-bottom: 100px; overflow: auto;height: 800px">
                 <h3 >需要填写以下{{ amount }}张表单</h3>
                 {% for k, v in sales_info.items %}
                     <button type="button" href="#" class="btn btn-info" onclick="getInfo(this)">{{ k }}</button>
@@ -67,12 +69,12 @@
                 <h3 id="form_title"></h3>
                 <form id="myForm" role="form" class="form-inline myForm" action="/autoPrint/details/" method="post">
                     <div class="form-group">
-                        <label for="date" >委托日期:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="date" disabled="true">委托日期:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="text" class="form-control " id="date" name="date" /><br>
                     </div><p></p>
                     <div class="form-group">
                         <label for="price">小写金额:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="price" name="price" />
+                        <input type="text" class="form-control" id="price" name="price" />&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="price_ch">大写金额:</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -80,30 +82,34 @@
                     </div><p></p>
                     <div class="form-group">
                         <label for="tax_receipt">托收票据:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="tax_receipt" name="tax_receipt" />
+                        <input type="text" class="form-control" id="tax_receipt" name="tax_receipt" />&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="receipt_amount">附寄单证张数:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" class="form-control" id="receipt_amount" name="receipt_amount"/>
                     </div><p></p>
-                    <div class="form-group">
+                    <div class="form-group " >
                         <label for="pay_note">付款标注:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" class="form-control" id="pay_note" name="pay_note" />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="notes">备注:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" class="form-control" id="notes" name="notes"/>
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
 
                     <div style="margin-top: 40px; margin-bottom: 20px "><h4><font color="#183a66">付款人信息</font></h4></div>
 
                     <div class="form-group">
                         <label for="pay_province">省(付款人):</label>&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="pay_province" name="pay_province" placeholder="河南" />
+                        <input type="text" class="form-control" id="pay_province" name="pay_province" />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="pay_account">市(付款人):</label>&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="pay_city" name="pay_city" placeholder="郑州" />
+                        <input type="text" class="form-control" id="pay_city" name="pay_city"/>
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
 
                     <div class="form-group">
@@ -113,47 +119,69 @@
                     <div class="form-group">
                         <label for="pay_account">付款人账号:</label>&nbsp;
                         <input type="text" class="form-control" id="pay_account" name="pay_account"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
                     <div class="form-group">
                         <label for="pay_address">付款人地址:</label>
                         <input type="text" class="form-control" id="pay_address" name="pay_address"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="pay_location">付款人开户行:</label>&nbsp;
-                        <input type="text" class="form-control" id="pay_location" name="pay_location"  />
+                        <input type="text" class="form-control" id="pay_location" name="pay_location" />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
                     <div style="margin-top: 40px; margin-bottom: 20px "><h4><font color="#183a66">收款人信息</font></h4></div>
 
                     <div class="form-group">
                         <label for="payee_province">省(收款人):</label>&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="payee_province" name="payee_province" placeholder="河南" />
+                        <input type="text" class="form-control" id="payee_province" name="payee_province"/>
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="payee_account">市(收款人):</label>&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="payee_city" name="payee_city" placeholder="郑州" />
+                        <input type="text" class="form-control" id="payee_city" name="payee_city" />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
 
                     <div class="form-group">
                         <label for="payee_name">收款人全称:</label>
                         <input type="text" class="form-control" id="payee_name" name="payee_name"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="payee_account">收款人账号:</label>&nbsp;
                         <input type="text" class="form-control" id="payee_account" name="payee_account"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
                     <div class="form-group">
                         <label for="payee_address">收款人地址:</label>
                         <input type="text" class="form-control" id="payee_address" name="payee_address"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="payee_location">收款人开户行:</label>&nbsp;
                         <input type="text" class="form-control" id="payee_location" name="payee_location"  />
+                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
                     <div style="margin-top: 20px">
                         <button type="submit" class="btn btn-primary" onclick="">提交</button>
                     </div>
                 </form>
+                <div class="col col-md-3">
+                    <form action="{% url 'download' %}">
+                        <button  class="btn btn-primary"  data-toggle="tooltip" title="请填写完所有表单后再点击下载">下载文件</button>
+                    </form>
+                </div>
             </div>
         </div>
+
     </div>
+{% endblock %}
+
+{% block helper %}
+    <p>1.请认真核对每个输入框的信息.</p>
+    <p>2.带有‘<span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>’图标的数据可以修改更新.</p>
+    <p>3.请不要重复提交.</p>
+    <p>4.请填写完所有单据后，再点击'下载文件'</p>
 {% endblock %}
