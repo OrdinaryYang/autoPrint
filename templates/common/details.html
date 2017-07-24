@@ -88,14 +88,14 @@
                         <label for="receipt_amount">附寄单证张数:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="text" class="form-control" id="receipt_amount" name="receipt_amount"/>
                     </div><p></p>
-                    <div class="form-group " >
-                        <label for="pay_note">付款标注:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="pay_note" name="pay_note" />
-                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{#                    <div class="form-group " >#}
+{#                        <label for="pay_note">付款标注:</label>&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#                        <input type="text" class="form-control" id="pay_note" name="pay_note" />#}
+{#                        <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>#}
+{#                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
                     <div class="form-group">
-                        <label for="notes">备注:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" class="form-control" id="notes" name="notes"/>
+                        <label for="notes">备注:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <textarea  class="form-control" id="notes" name="notes"></textarea>
                         <span class="glyphicon glyphicon-pencil" style="color:  rgb(64, 63, 65);"></span>
                     </div><p></p>
 
@@ -115,7 +115,7 @@
                     <div class="form-group">
                         <label for="pay_name">付款人全称:</label>
                         <input type="text" class="form-control" id="pay_name" name="pay_name"  />
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <label for="pay_account">付款人账号:</label>&nbsp;
                         <input type="text" class="form-control" id="pay_account" name="pay_account"  />
@@ -168,11 +168,17 @@
                         <button type="submit" class="btn btn-primary" onclick="">提交</button>
                     </div>
                 </form>
-                <div class="col col-md-3">
+                <div class="col col-md-3 ">
                     <form action="{% url 'download' %}">
                         <button  class="btn btn-primary"  data-toggle="tooltip" title="请填写完所有表单后再点击下载">下载文件</button>
                     </form>
                 </div>
+                <div class="col col-md-3 ">
+                    <form action="{% url 'download_printer' %}">
+                        <button  class="btn btn-primary"  data-toggle="tooltip" title="点击下载‘打印工具’">下载打印工具</button>
+                    </form>
+                </div>
+
             </div>
         </div>
 

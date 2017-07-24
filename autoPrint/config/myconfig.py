@@ -14,7 +14,8 @@ acc_file_config = {
 
 zip_file_config = {
     'file_name': 'media/csvFiles/download.zip',
-    'dir_path': 'media/csvFiles/'
+    'dir_path': 'media/csvFiles/',
+    'printer_path': 'media/printer/printer.zip'
 }
 
 ems_file_config = {
@@ -23,3 +24,13 @@ ems_file_config = {
     'company_from': '上海浦东发展银行',
     'company_from_addr': '郑州市金水区金水路299号',
 }
+
+email_verify_config = {
+    'url': 'http://10.15.60.18/Domain/DomianUserService.asmx',
+    'uid': 3,
+    'token': 'zzubranch.spdb.common'
+}
+
+
+webservice_raw_req_content = """<?xml version="1.0" encoding="utf-8"?><soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope"><soap12:Body><validDomainUser xmlns="http://www.spdb.com.cn/"><Uid>3</Uid><Token>zzubranch.spdb.common</Token><UserDomianName>username</UserDomianName><UserPassWord>password</UserPassWord></validDomainUser></soap12:Body></soap12:Envelope>
+"""

@@ -1,3 +1,6 @@
+import logging
+import os
+from .lib.utils_lan import email_verify
 from django.core.files.storage import FileSystemStorage
 from django.forms.models import model_to_dict
 from .models import PayCompany, PayeeCompany, SaleReport
@@ -7,8 +10,6 @@ from .lib.utils import accessExcelData, mergeDictsValue, write2csv, getToday, my
 from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
 from collections import OrderedDict
 from datetime import datetime
-import logging
-import os
 
 
 logger = logging.getLogger(__name__)
@@ -28,11 +29,36 @@ def test_details(request):
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'common/index.html')
+
+
+def logout(request):
+    try:
+        del request.session['USERNAME']
+        del request.session['PASSWORD']
+        del request.session['IS_LOGIN']
+    except KeyError:
+        pass
+    return render(request, 'common/login.html')
 
 
 def login(request):
-    return render(request, 'common/login.html')
+    if 'IS_LOGIN' in request.session and request.session['IS_LOGIN']:
+        username = request.session['USERNAME']
+        name, server = username.split('@')
+        return render(request, 'common/index.html', {'username': name})
+    else:
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            if email_verify(username, password) is True:
+                request.session['IS_LOGIN'] = True
+                request.session['USERNAME'] = username
+                request.session['PASSWORD'] = password
+                name, server = username.split('@')
+                return render(request, 'common/index.html', {'username': name})
+        else:
+            return render(request, 'common/login.html')
 
 
 def check_info(request):
@@ -102,6 +128,24 @@ def download(req):
     the_file_name = zip_file_config['file_name']
     csv_path = zip_file_config['dir_path']
     myCompress(csv_path, the_file_name)
+
+    def file_iterator(file_name, chunk_size=512):
+        with open(file_name, 'rb') as f:
+            while True:
+                c = f.read(chunk_size)
+                if c:
+                    yield c
+                else:
+                    break
+            f.close()
+    response = StreamingHttpResponse(file_iterator(the_file_name))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    return response
+
+
+def download_printer(req):
+    the_file_name = zip_file_config['printer_path']
 
     def file_iterator(file_name, chunk_size=512):
         with open(file_name, 'rb') as f:

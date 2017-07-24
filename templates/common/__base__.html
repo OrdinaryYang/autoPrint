@@ -45,9 +45,20 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right btn">
-                    <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-                    <li class="disabled"><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                <ul class="nav navbar-nav navbar-right btn ">
+                    {% if username %}
+                        <li class="dropdown">您好，
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">您好，{{ username }}</a>
+                        <ul class="dropdown-menu">
+                            <li class="text-right"><a href="{% url "logout" %}">
+                                <span class="glyphicon glyphicon-log-out" style="color: rgb(32, 18, 33);">登出</span>
+                            </a></li>
+                        </ul>
+                        </li>
+                    {% else %}
+                        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                        <li class="disabled"><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
