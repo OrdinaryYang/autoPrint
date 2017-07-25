@@ -222,7 +222,7 @@ def post_details(request):
                       '款项接收日期', pay_account_location, pay_province, pay_city, payee_province, payee_city,
                       sales_receipt_amount], ]
         acc_info_line = [[getToday(), payment_comp, pay_province+pay_city+pay_account_location, sales_price,
-                          't'+sales_tax_receipt, sales_receipt_amount, notes], ]
+                          '\t'+sales_tax_receipt, sales_receipt_amount, notes], ]
         ems_info_line = [[ems_file_config['company_from'], ems_file_config['company_from_addr'], payment_comp,
                          pay_company_address], ]
         write2csv(file_config['csv_dir'], info_line, mode='a')

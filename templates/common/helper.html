@@ -14,13 +14,13 @@
             position: fixed;
             font-size: x-large;
         }
-        div.col-md-10 div {
+        div.col-md-8 div {
             height: auto;
-            font-size: 20px;
+            font-size: 18px;
         }
         @media screen and (max-width: 810px) {
             #section1, #section2, #section3, #section4  {
-                margin-left: 20%;
+                margin-left: 10%;
                 margin-top: auto;
             }
         }
@@ -32,49 +32,69 @@
             <div class="container-fluid">
                 <div class="container-fluid">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#section1">Section 1 </a></li>
-                        <li><a href="#section2">Section 2 </a></li>
-                        <li><a href="#section3">Section 3 </a></li>
-                        <li><a href="#section4">Section 4 </a></li>
+                        <li class="active"><a href="#section1">数据准备</a></li>
+                        <li><a href="#section2">信息填写</a></li>
+                        <li><a href="#section3">打印凭证</a></li>
+                        <li><a href="#section4">打印EMS</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="col-md-10" style="margin-left: 20%">
+        <div class="col-md-8" style="margin-left: 20%">
             <div id="section1">
-                <h1>Section 1</h1>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
+                <h2>数据准备</h2><br>
+                <p class="text-align:justify">1.准备好需要打印的销售日报数据并保存为xls格式，<font color="#8b0000"><b>文件名不要出现中文</b></font>。如下图所示。</p>
+                <p><image src="../static/common/images/sales_reporter.png" class="img-responsive" alt="销售日报"
+                          width="770" height="466"/><br><br></p>
             </div>
             <div id="section2">
-                <h1>Section 2</h1>
-                <p>这里填写帮助的第二部分</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
+                <h2>信息填写</h2><br>
+
+                <p>1.连接内网并打开链接http://10.15.60.113:9001/autoPrint/，进入票据打印系统如下图所示。</p><p></p>
+                <p><image src="../static/common/images/index.png" class="img-responsive" alt="首页"
+                          width="770" height="466"/><br><br></p>
+
+                <p>2.上传文件。 点击首页中间右边的browse…进入文件选择界面，选取已经准备好的销售日报数据的xls文件，<font color="#8b0000"><b>注意销售日报文件名字不能是中文</b></font>，然后点击<font color="#8b0000"><b>“upload”</b></font>进入票据打印界面。如下图所示。</p>
+                <p><image src="../static/common/images/upload.png" class="img-responsive" alt="上传页"
+                          width="770" height="466"/><br><br><br></p>
+
+                <p>3.填写票据信息。整个票据打印界面分为左右两个部分，如下图，左侧为需要填写的所有表单的列表，右侧为填写表单数据的界面，其中销售日报中需要的数据已经导入，操作员将剩余信息补齐之后点击下侧的<font color="#8b0000"><b>“提交”</b></font>按钮。所有表单操作完成后点击最下方<font color="#8b0000"><b>“下载文件”</b></font>会下载一个压缩文件，将压缩文件解压到桌面。同时点击<font color="#8b0000"><b>“下载打印工具”</b></font>, 下载打印工具“printer”。</p>
+                <p><image src="../static/common/images/details1.png" class="img-responsive" alt="详情页1"
+                          width="770" height="466"/></p><p></p>
+                <p><image src="../static/common/images/details2.png" class="img-responsive" alt="详情页2"
+                          width="770" height="466"/><br><br></p>
             </div>
             <div id="section3">
-                <h1>Section 3</h1>
-                <p>这里填写帮助的第三部分</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
+                <h2>打印凭证</h2><br>
+                <p >1.准备打印。解压'download.zip'中有三个Excel文件，如下图所示。'Total_info.csv'文件用来打印票据，'ems.csv'文件用来打印快递单.</p>
+                <p><image src="../static/common/images/files.png" class="img-responsive" alt="下载的文件"
+                          width="770" height="466"/><br><br></p>
+
+                <p>2.解压下载'printer.zip'压缩包，点击进入其中的“四五打印助手最终版”，双击打开'SIWUprinter.exe'，如下图所示</p>
+                <p><image src="../static/common/images/siwu.png" class="img-responsive" alt="四五打印程序"
+                          width="770" height="466"/><br><br></p>
+
+                <p>3.进入程序后界面如下图所示，<font color="#8b0000"><b>双击上图中选中区域</b></font>（不用管选中内容是否为所需内容）进入打印界面。</p>
+                <p><image src="../static/common/images/main1.png" class="img-responsive" alt="四五主界面"
+                          width="770" height="466"/><br><br></p>
+
+                <p>4.点击下图右上方<font color="#8b0000"><b>设置</b></font>按钮连接自己所用型号的打印机；单据名称选择<font color="#8b0000"><b>托收凭证</b></font>。</p>
+                <p><image src="../static/common/images/setting.png" class="img-responsive" alt="设置"
+                          width="770" height="466"/><br><br></p>
+
+                <p>5.然后点击左上角文件，选择导入文件数据打印，选择之前解压的total_info文件进行导入，结果如下图所示。勾选所有序号然后<font color="#8b0000"><b>点击"退出"</b></font>。</p>
+                <p><image src="../static/common/images/import.png" class="img-responsive" alt="导入"
+                          width="770" height="466"/><br><br></p>
+
+                <p>6.页面会自动弹出“确定打印吗”，<font color="#8b0000"><b>点击"确定"</b></font></p>
+                <p><image src="../static/common/images/print.png" class="img-responsive" alt="打印"
+                          width="770" height="466"/><br><br></p>
+                <p>7.将托收凭证放入打印机开始打印凭证即可。</p>
             </div>
             <div id="section4">
-                <h1>Section 4</h1>
-                <p>这里填写帮助的第四部分</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
-                <p>这里填写帮助的第一部分...</p>
+                <h2>打印EMS</h2><br>
+                <p>1.打印完成之后将单据名称选择为<font color="#8b0000"><b>EMS国内标准快递</b></font>。点击左上角文件，选择导入文件数据打印，选择之前解压的ems文件进行导入。按之前的流程打印EMS快递单即可</p>
+
             </div>
         </div>
     </div>
